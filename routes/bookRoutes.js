@@ -1,6 +1,6 @@
 var express = require('express');
-var Book = require('../models/bookModel');
-var routes = function(){ // declaring as function for testability
+//var Book = require('../models/bookModel'); // Will get this injected from app.js
+var routes = function(Book){ // declaring as function for testability. Book is injected from app.js
 //Router 1
 var bookRouter=express.Router(); 
 bookRouter.route('/Books')
@@ -28,7 +28,7 @@ bookRouter.route('/Books')
         console.log(book);
         res.send(book).status(201);
     })
-    
+
 // Router 2     
 bookRouter.route('/books/:bookId')
     .get(function(req,res){
