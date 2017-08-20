@@ -5,7 +5,7 @@ var port = process.env.PORT || 3000;
 var db = mongoose.connect('mongodb://localhost/bookAPI');
 var bodyParser = require('body-parser');
 
-var Book = require('./models/bookModel'); // This is a mongoose schema. Can call  Book.find() Book.findById() Book.findByIdAndRemove() Book.findOne() Book.findOneAndUpdate()
+var Book = require('./models/bookModel.js'); // This is a mongoose schema. Can call  Book.find() Book.findById() Book.findByIdAndRemove() Book.findOne() Book.findOneAndUpdate()
 bookRouter = require('./routes/bookRoutes.js')(Book);
 
 //Associating various modules with this app
