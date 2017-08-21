@@ -1,6 +1,6 @@
 var express = require('express');
 //var Book = require('../models/bookModel'); // Will get this injected from app.js
-var routes = function(Book){ // declaring as function for testability. Book is injected from app.js
+var routes = function(Book,jsonParser){ // declaring as function for testability. Book is injected from app.js
 //Router 1
 var bookRouter=express.Router(); 
 bookRouter.route('/Books')
@@ -20,7 +20,7 @@ bookRouter.route('/Books')
                 res.json(books);
         });
     })
-    .post(function(req,res){ //POST METHOD
+    .post(jsonParser,function(req,res){ //POST METHOD
         console.log("Request body "+req.body)
         var book = new Book(req.body) // This will create a new instance of book in mongodb and also generates the _id
         console.log("Book to add "+book);
