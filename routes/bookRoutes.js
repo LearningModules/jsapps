@@ -1,7 +1,6 @@
 var express = require('express');
 
 
-
 var routes = function(Book,jsonParser){ // declaring as function for testability. Book is injected from app.js
 var bookRouter=express.Router(); 
 bookRouter.route('/Books')
@@ -29,6 +28,10 @@ bookRouter.route('/Books')
         res.send(book).status(201);
     })
 
+
+
+
+
 // Router 2     
 bookRouter.route('/books/:bookId')
     .get(function(req,res){
@@ -40,8 +43,28 @@ bookRouter.route('/books/:bookId')
         
                 res.json(book).status(200);
         });
+    })
+    .put(jsonParser,function(req,res){
+        console.log("Book Id "+req.params.bookId)
+        Book.findById(req.params.bookId,function(err,book){
+            if(err)
+                res.status(500).send(err);
+            else
+                console.log("Current title "+req.body.title)
+                console.log("Book author "+req.body.author)
+                console.log("Book genre "+req.body.genre)
+                console.log("Book read "+req.body.read)
+                book.title = req.body.title;
+                book.author = req.body.author;
+                book.genre = req.body.genre;
+                book.read = req.body.read;
+                book.save();
+                res.json(book);
+        })
     });
     return bookRouter;
 };
+
+
 
 module.exports=routes;
